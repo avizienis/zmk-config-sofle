@@ -41,11 +41,11 @@
             //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
 
             bindings = <
-&kp GRAVE  &kp N1  &kp N2    &kp N3    &kp N4     &kp N5                           &kp N6  &kp N7     &kp N8     &kp N9    &kp N0    &none
-&kp ESC    &kp Q   &kp W     &kp E     &kp R      &kp T                            &kp Y   &kp U      &kp I      &kp O     &kp P     &kp BSPC
-&kp TAB    &kp A   &kp S     &kp D     &kp F      &kp G                            &kp H   &kp J      &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X     &kp C     &kp V      &kp B   &kp C_MUTE    &to 1      &kp N   &kp M      &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-                   &kp LGUI  &kp LALT  &kp LCTRL  &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RCTRL  &kp RALT   &kp RGUI
+&kp GRAVE      &kp N1  &kp N2    &kp N3    &kp N4     &kp N5                           &kp N6  &kp N7     &kp N8     &kp N9    &kp N0    &kp EQUAL
+&kp TAB        &kp Q   &kp W     &kp E     &kp R      &kp T                            &kp Y   &kp U      &kp I      &kp O     &kp P     &kp BSPC
+&kp BACKSPACE  &kp A   &kp S     &kp D     &kp F      &kp G                            &kp H   &kp J      &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT      &kp Z   &kp X     &kp C     &kp V      &kp B   &kp C_MUTE    &to 1      &kp N   &kp M      &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+                       &kp LGUI  &kp LALT  &kp LCTRL  &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RCTRL  &kp RALT   &kp RGUI
             >;
 
             sensor-bindings =
@@ -56,11 +56,11 @@
         mac {
             display-name = "Mac";
             bindings = <
-&kp GRAVE  &kp N1  &kp N2     &kp N3    &kp N4    &kp N5                           &kp N6  &kp N7    &kp N8     &kp N9     &kp N0    &none
-&kp ESC    &kp Q   &kp W      &kp E     &kp R     &kp T                            &kp Y   &kp U     &kp I      &kp O      &kp P     &kp BSPC
-&kp TAB    &kp A   &kp S      &kp D     &kp F     &kp G                            &kp H   &kp J     &kp K      &kp L      &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X      &kp C     &kp V     &kp B   &kp C_MUTE    &to 0      &kp N   &kp M     &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
-                   &kp LCTRL  &kp LALT  &kp LCMD  &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RCMD  &kp RALT   &kp RCTRL
+&kp GRAVE      &kp N1  &kp N2     &kp N3    &kp N4    &kp N5                           &kp N6  &kp N7    &kp N8     &kp N9     &kp N0    &kp EQUAL
+&kp TAB        &kp Q   &kp W      &kp E     &kp R     &kp T                            &kp Y   &kp U     &kp I      &kp O      &kp P     &kp BSPC
+&kp BACKSPACE  &kp A   &kp S      &kp D     &kp F     &kp G                            &kp H   &kp J     &kp K      &kp L      &kp SEMI  &kp SQT
+&kp LSHFT      &kp Z   &kp X      &kp C     &kp V     &kp B   &kp C_MUTE    &to 0      &kp N   &kp M     &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
+                       &kp LCTRL  &kp LALT  &kp LCMD  &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RCMD  &kp RALT   &kp RCTRL
             >;
 
             sensor-bindings =
@@ -80,11 +80,11 @@
             //               |     |      |      |      |        |  |       |      |       |       |      |
 
             bindings = <
-&trans     &kp F1           &kp F2           &kp F3           &kp F4                   &kp F5                                      &kp F6           &kp F7           &kp F8           &kp F9           &kp F10          &kp F11
-&kp GRAVE  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp KP_NUMBER_4          &kp KP_NUMBER_5                             &kp KP_NUMBER_6  &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp KP_NUMBER_0  &kp F12
-&trans     &kp EXCL         &kp AT           &kp HASH         &kp KP_LEFT_PARENTHESIS  &kp KP_RIGHT_PARENTHESIS                    &kp KP_EQUAL     &kp KP_DIVIDE    &kp KP_ASTERISK  &kp KP_MINUS     &kp KP_PLUS      &kp PIPE
-&trans     &kp KP_EQUAL     &kp KP_SUBTRACT  &kp KP_PLUS      &kp LBRC                 &kp RBRC                  &trans    &trans  &kp LBKT         &kp RBKT         &kp SEMI         &kp COLON        &kp BSLH         &trans
-                            &trans           &trans           &trans                   &trans                    &trans    &trans  &trans           &trans           &trans           &trans
+&trans      &kp F1           &kp F2           &kp F3           &kp F4                   &kp F5                                      &kp F6           &kp F7           &kp F8           &kp F9           &kp F10          &kp F11
+&kp ESCAPE  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp KP_NUMBER_4          &kp KP_NUMBER_5                             &kp KP_NUMBER_6  &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp KP_NUMBER_0  &kp F12
+&trans      &kp EXCL         &kp AT           &kp HASH         &kp KP_LEFT_PARENTHESIS  &kp KP_RIGHT_PARENTHESIS                    &kp KP_EQUAL     &kp KP_DIVIDE    &kp KP_ASTERISK  &kp MINUS        &kp KP_PLUS      &kp PIPE
+&trans      &kp KP_EQUAL     &kp KP_SUBTRACT  &kp KP_PLUS      &kp LBRC                 &kp RBRC                  &trans    &trans  &kp LBKT         &kp RBKT         &kp SEMI         &kp COLON        &kp BSLH         &trans
+                             &trans           &trans           &trans                   &trans                    &trans    &trans  &trans           &trans           &trans           &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -121,11 +121,11 @@
 
             display-name = "adjust";
             bindings = <
-&bt BT_CLR         &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                               &none  &none  &none  &none  &none  &none
-&ext_power EP_TOG  &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF                            &none  &none  &none  &none  &none  &none
-&none              &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &none                                      &none  &none  &none  &none  &none  &none
-&none              &none            &none            &none            &none            &none            &rgb_ug RGB_TOG    &none  &none  &none  &none  &none  &none  &none
-                                    &none            &none            &none            &none            &none              &none  &none  &none  &none  &none
+&bt BT_CLR         &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                               &none       &none             &none       &none  &none  &none
+&ext_power EP_TOG  &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF                            &kp C_PREV  &kp C_PLAY_PAUSE  &kp C_NEXT  &none  &none  &none
+&none              &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &none                                      &none       &none             &none       &none  &none  &none
+&none              &none            &none            &none            &none            &none            &rgb_ug RGB_TOG    &none  &none       &none             &none       &none  &none  &none
+                                    &none            &none            &none            &none            &none              &none  &none       &none             &none       &none
             >;
         };
     };
