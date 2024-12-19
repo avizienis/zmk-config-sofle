@@ -1,0 +1,16 @@
+# Copyright (c) 2020 Ryan Cross
+# SPDX-License-Identifier: MIT
+
+if SHIELD_SOFLE_DONGLE
+
+# Max 16 characters in keyboard name
+config ZMK_SOFLE
+    default "Sofle"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_SPLIT
+    default y
+
+endif
