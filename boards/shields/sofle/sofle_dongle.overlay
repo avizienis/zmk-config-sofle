@@ -1,3 +1,8 @@
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <layouts/josefadamcik/sofle.dtsi>
+
+
 / {
     chosen {
         zmk,kscan = &mock_kscan;
