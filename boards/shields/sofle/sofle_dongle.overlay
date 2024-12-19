@@ -1,4 +1,4 @@
-my_keyboard_dongle.overlay
+
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
