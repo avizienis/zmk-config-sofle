@@ -6,24 +6,22 @@
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/rgb.h>
 
 #define BASE 0
-#define LOWER 1
-#define RAISE 2
-#define ADJUST 3
+#define MAC 1
+#define LOWER 2
+#define RAISE 3
+#define ADJUST 4
 
 / {
     // Activate ADJUST layer by pressing raise and lower
-
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
         adjust {
-            if-layers = <3 2>;
+            if-layers = <2 3>;
             then-layer = <4>;
         };
     };
@@ -35,11 +33,12 @@
             bindings = <&kp>, <&kp>;
 
             #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-            flavor = "balanced";
-            hold-trigger-key-positions = <50 51 52 53 54 55 56 57 58 59 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 44 45 46 47 48 49>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <50>;
+            flavor = "tap-preferred";
+            // Re-indexed for Sofle (Right hand keys + right thumbs)
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 43 44 45 46 47 48 49 53 54 55 56 57>;
             hold-trigger-on-release;
         };
 
@@ -49,11 +48,49 @@
             bindings = <&kp>, <&kp>;
 
             #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <50>;
+            flavor = "tap-preferred";
+            // Re-indexed for Sofle (Left hand keys + left thumbs)
+            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42 47 48 49 50 51 52>;
+            hold-trigger-on-release;
+        };
+
+        smart_caps: smart_caps {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SMART_CAPS";
+            bindings = <&kp>, <&caps_word>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <50>;
+        };
+
+        sml: sml {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SML";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <50>;
             flavor = "balanced";
-            hold-trigger-key-positions = <55 56 57 58 59 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42 50 51 52 53 54>;
+            hold-trigger-on-release;
+        };
+
+        smr: smr {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SMR";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <50>;
+            flavor = "balanced";
             hold-trigger-on-release;
         };
     };
@@ -61,14 +98,30 @@
     combos {
         compatible = "zmk,combos";
 
-        caps-word {
-            bindings = <&caps_word>;
-            key-positions = <28 31>;
+        smart-cap {
+            bindings = <&smart_caps CAPSLOCK 0>;
+            // Mapped to Sofle equivalent positions (E and I keys)
+            key-positions = <15 20>;
         };
 
-        mute {
-            bindings = <&kp C_MUTE>;
-            key-positions = <33 34>;
+        lenter {
+            bindings = <&kp ENTER>;
+            // Mapped to Sofle equivalent positions (W and E keys)
+            key-positions = <14 15>;
+            require-prior-idle-ms = <150>;
+        };
+
+        renter {
+            bindings = <&kp ENTER>;
+            // Mapped to Sofle equivalent positions (I and O keys)
+            key-positions = <20 21>;
+            require-prior-idle-ms = <150>;
+        };
+
+        off {
+            bindings = <&soft_off>;
+            // Mapped to outer corner alpha equivalent positions on Sofle
+            key-positions = <13 24 35 46>;
         };
     };
 
@@ -78,96 +131,72 @@
         win {
             display-name = "Win";
 
-            // ------------------------------------------------------------------------------------------------------------
-            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |       |
-            // |  ESC  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
-            // |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-            // | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
-
             bindings = <
-&kp GRAVE      &kp N1           &kp N2           &kp N3        &kp N4             &kp N5                           &kp N6  &kp N7         &kp N8        &kp N9       &kp N0           &kp EQUAL
-&kp TAB        &kp Q            &kp W            &kp E         &kp R              &kp T                            &kp Y   &kp U          &kp I         &kp O        &kp P            &kp BSPC
-&kp BACKSPACE  &hml LEFT_GUI A  &hml LEFT_ALT S  &hml LCTRL D  &hml LEFT_SHIFT F  &kp G                            &kp H   &hmr RSHIFT J  &hmr RCTRL K  &hmr RALT L  &hmr RMETA SEMI  &kp SQT
-&kp LSHFT      &hml LC(Z) Z     &hml LC(X) X     &hml LC(C) C  &hml LC(V) V       &kp B   &kp C_MUTE    &to 1      &kp N   &kp M          &kp COMMA     &kp DOT      &kp FSLH         &kp RSHFT
-                                &kp LGUI         &kp LALT      &tog 3             &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RCTRL      &kp RALT      &kp RGUI
+&none          &none            &none            &none         &none              &none                                     &none      &none          &none         &none        &none            &none
+&kp TAB        &kp Q            &kp W            &kp E         &kp R              &kp T                                     &kp Y      &kp U          &kp I         &kp O        &kp P            &kp BSPC
+&kp BACKSPACE  &hml LEFT_GUI A  &hml LEFT_ALT S  &hml LCTRL D  &sml LEFT_SHIFT F  &kp G                                     &kp H      &smr RSHIFT J  &hmr RCTRL K  &hmr RALT L  &hmr RMETA SEMI  &kp SQT
+&kp LSHFT      &hml LC(Z) Z     &hml LC(X) X     &hml LC(C) C  &hml LC(V) V       &kp B        &none           &none        &kp N      &kp M          &kp COMMA     &kp DOT      &kp FSLH         &kp RSHFT
+                                &none            &none         &mo 2              &mo 3        &kp SPACE       &kp SPACE    &mo 2      &mo 3          &none         &none
             >;
-
-            sensor-bindings =
-                <&inc_dec_kp C_VOL_UP C_VOL_DN>,
-                <&inc_dec_kp RIGHT LEFT>;
         };
 
-        Mac {
+        Alt-Mac {
             display-name = "Mac";
+
             bindings = <
-&kp GRAVE      &kp N1        &kp N2           &kp N3           &kp N4             &kp N5                           &kp N6  &kp N7         &kp N8        &kp N9       &kp N0           &kp EQUAL
-&kp TAB        &kp Q         &kp W            &kp E            &kp R              &kp T                            &kp Y   &kp U          &kp I         &kp O        &kp P            &kp BSPC
-&kp BACKSPACE  &hml LCTRL A  &hml LEFT_ALT S  &hml LEFT_WIN D  &hml LEFT_SHIFT F  &kp G                            &kp H   &hmr RSHIFT J  &hmr RMETA K  &hmr RALT L  &hmr RCTRL SEMI  &kp SQT
-&kp LSHFT      &hml LG(Z) Z  &hml LG(X) X     &hml LG(C) C     &hml LG(V) V       &kp B   &kp C_MUTE    &to 0      &kp N   &kp M          &kp COMMA     &kp DOT      &kp FSLH         &kp RSHFT
-                             &kp LCTRL        &kp LALT         &tog 3             &mo 2   &kp RET       &kp SPACE  &mo 3   &kp RMETA      &kp RALT      &kp RCTRL
+&none   &none         &none         &none         &none         &none                             &none   &none   &none         &none   &none                 &none
+&trans  &trans        &trans        &trans        &trans        &trans                            &trans  &trans  &trans        &trans  &trans                &trans
+&trans  &hml LCTRL A  &trans        &hml LCMD D   &trans        &trans                            &trans  &trans  &hmr RMETA K  &trans  &hmr RCTRL SEMICOLON  &trans
+&trans  &hml LG(Z) Z  &hml LG(X) X  &hml LG(C) C  &hml LG(V) V  &trans    &none         &none     &trans  &trans  &trans        &trans  &trans                &trans
+                      &none         &none         &trans        &trans    &trans        &trans    &trans  &trans  &none         &none
             >;
-
-            sensor-bindings =
-                <&inc_dec_kp C_VOL_UP C_VOL_DN>,
-                <&inc_dec_kp RIGHT LEFT>;
-        };
-
-        alt-lower {
-            bindings = <
-&none       &none             &none             &none             &none                         &none                         &none             &none                    &none          &none             &none              &none
-&kp ESCAPE  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3      &kp NUMBER_4                  &kp N5                        &kp NUMBER_6      &kp N7                   &kp N8         &kp N9            &kp N0             &kp EQUAL
-&kp GRAVE   &kp RA(NUMBER_1)  &kp RA(NUMBER_2)  &kp RA(NUMBER_3)  &hml LEFT_SHIFT RA(NUMBER_4)  &kp RA(N5)                    &kp RA(NUMBER_6)  &hmr RIGHT_SHIFT RA(N7)  &kp RA(N8)     &kp RA(N9)        &kp RA(N0)         &kp RA(EQUAL)
-&none       &none             &none             &none             &none                         &none       &none     &none   &none             &kp MINUS                &kp BACKSLASH  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &none
-                              &none             &none             &none                         &trans      &trans    &trans  &trans            &none                    &none          &none
-            >;
-
-            label = "diac";
-            sensor-bindings =
-                <&inc_dec_kp C_VOLUME_UP C_VOL_DN>,
-                <&inc_dec_kp PAGE_UP PAGE_DOWN>;
         };
 
         raise_layer {
-            display-name = "raise";
-
-            // ------------------------------------------------------------------------------------------------------------
-            // | BTCLR | BT1  | BT2  |  BT3  |  BT4  |  BT5 |                |      |      |       |      |       |       |
-            // |       | INS  | PSCR | GUI   |       |      |                | PGUP |      |   ^   |      |       |       |
-            // |       | ALT  | CTRL | SHIFT |       | CAPS |                | PGDN |   <- |   v   |  ->  |  DEL  | BKSPC |
-            // |       | UNDO | CUT  | COPY  | PASTE |      |      |  |      |      |      |       |      |       |       |
-            //                |      |       |       |      |      |  |      |      |      |       |      |
+            display-name = "num";
 
             bindings = <
-&bt BT_CLR     &bt BT_SEL 0     &bt BT_SEL 1               &bt BT_SEL 2     &bt BT_SEL 3             &bt BT_SEL 4                    &none      &none     &none     &none          &none     &none
-&kp KP_SLASH   &kp KP_MULTIPLY  &kp KP_NUMBER_7            &kp KP_N8        &kp KP_N9                &kp KP_MINUS                    &kp PG_UP  &kp DEL   &kp UP    &kp BACKSPACE  &kp HOME  &trans
-&kp BACKSPACE  &kp KP_DOT       &hml LEFT_ALT KP_NUMBER_4  &kp KP_NUMBER_5  &hml LSHIFT KP_NUMBER_6  &kp KP_PLUS                     &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT      &kp END   &none
-&none          &kp KP_N0        &kp KP_NUMBER_1            &kp KP_N2        &kp KP_NUMBER_3          &kp KP_EQUAL  &none     &none   &none      &none     &none     &none          &none     &none
-                                &none                      &none            &tog 3                   &trans        &trans    &trans  &trans     &none     &none     &none
+&none           &none            &none                      &none            &none                    &none                                     &none      &none     &none     &none          &none     &none
+&kp KP_SLASH    &kp KP_MULTIPLY  &kp KP_NUMBER_7            &kp KP_N8        &kp KP_N9                &kp KP_MINUS                              &kp PG_UP  &kp DEL   &kp UP    &kp BACKSPACE  &kp HOME  &trans
+&kp BACKSPACE   &kp KP_DOT       &hml LEFT_ALT KP_NUMBER_4  &kp KP_NUMBER_5  &hml LSHIFT KP_NUMBER_6  &kp KP_PLUS                               &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT      &kp END   &none
+&kt KP_NUMLOCK  &kp KP_N0        &kp KP_NUMBER_1            &kp KP_N2        &kp KP_NUMBER_3          &kp KP_EQUAL  &none          &none        &none      &none     &none     &none          &none     &trans
+                                 &none                      &none            &trans                   &trans        &trans         &trans       &trans     &none     &none     &none
             >;
+        };
 
-            sensor-bindings =
-                <&inc_dec_kp PAGE_UP PAGE_DOWN>,
-                <&inc_dec_kp PG_UP PG_DN>;
+        alt-lower {
+            display-name = "diac";
 
-            label = "num";
+            bindings = <
+&none       &none             &none             &none             &none                         &none                                     &none             &none                    &none          &none             &none              &none
+&kp ESCAPE  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3      &kp NUMBER_4                  &kp N5                                    &kp NUMBER_6      &kp N7                   &kp N8         &kp N9            &kp N0             &kp EQUAL
+&kp GRAVE   &kp RA(NUMBER_1)  &kp RA(NUMBER_2)  &kp RA(NUMBER_3)  &hml LEFT_SHIFT RA(NUMBER_4)  &kp RA(N5)                                &kp RA(NUMBER_6)  &hmr RIGHT_SHIFT RA(N7)  &kp RA(N8)     &kp RA(N9)        &kp RA(N0)         &kp RA(EQUAL)
+&trans      &none             &none             &none             &none                         &none         &none          &none        &none             &kp MINUS                &kp BACKSLASH  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &trans
+                              &none             &none             &none                         &trans        &trans         &trans       &trans            &none                    &none          &none
+            >;
         };
 
         adjust_layer {
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-            // | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
-            //                    |         |         |         |         |         | |      |      |      |       |      |
-
             display-name = "adjust";
+
             bindings = <
-&bt BT_CLR         &bt BT_SEL 0       &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                            &none       &none             &none       &none         &none         &none
-&ext_power EP_TOG  &kp F1             &kp F2        &kp F3        &kp F4        &kp F5                                  &kp F6      &kp F7            &kp F8      &kp F9        &kp F10       &kp F11
-&bt BT_CLR         &bt BT_SEL 0       &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                            &kp C_PREV  &kp C_PLAY_PAUSE  &kp C_NEXT  &kp C_VOL_DN  &kp C_VOL_UP  &kp F12
-&ext_power EP_ON   &ext_power EP_OFF  &out OUT_BLE  &out OUT_USB  &none         &none         &rgb_ug RGB_TOG    &none  &none       &none             &none       &none         &none         &none
-                                      &none         &none         &none         &none         &none              &none  &none       &none             &none       &none
+&none       &none         &none         &none         &none         &none                                     &none       &none             &none       &none          &none          &none
+&none       &kp F1        &kp F2        &kp F3        &kp F4        &kp F5                                    &kp F6      &kp F7            &kp F8      &kp F9         &kp F10        &kp F11
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                              &kp C_PREV  &kp C_PLAY_PAUSE  &kp C_NEXT  &kp C_VOL_DN   &kp C_VOL_UP   &kp F12
+&none       &none         &out OUT_BLE  &out OUT_USB  &none         &none         &none          &none        &none       &kp RIGHT_SHIFT   &kp RCTRL   &kp RIGHT_ALT  &kp RIGHT_WIN  &none
+                          &none         &none         &none         &none         &none          &none        &none       &none             &none       &none
+            >;
+        };
+
+        layer_5 {
+            display-name = "layer_5";
+
+            bindings = <
+&none   &none   &none   &none   &none   &none                   &none   &none   &none   &none   &none   &none
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &none   &none   &trans  &trans  &trans  &trans  &trans  &trans
+                &none   &none   &trans  &trans  &trans  &trans  &trans  &trans  &none   &none
             >;
         };
     };
